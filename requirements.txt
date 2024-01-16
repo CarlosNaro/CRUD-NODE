@@ -1,0 +1,8 @@
+nodemon
+pg
+dotenv
+cors
+sequelize 
+jsonwebtoken
+bcrypt
+typescript  
