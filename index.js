@@ -1,8 +1,8 @@
-// conexion a la base da datos postgreSql usando express 
+// conexion a la base da datos postgreSql usando express
 
 const express = require('express');
 const app = express();
-require('dotenv').config()
+require('dotenv').config();
 // conexion a la base da datos postgreSql
 // const pg = require('pg');
 // const db = app.createConnection({
@@ -19,11 +19,10 @@ require('dotenv').config()
 // });
 
 app.get('/', (req, res) => {
-    res.json({message: 'Welcome to my application'});
+  res.json({ message: 'Welcome to my application' });
 });
-
 
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
-    console.log(`Server running on port http://localhost:${PORT}/` );
+  console.log(`Server running on port http://localhost:${PORT}/`);
 });

@@ -3,14 +3,14 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.Products = void 0;
+exports.Users = void 0;
 const sequelize_1 = require("sequelize");
 const connection_db_1 = __importDefault(require("../db/connection.db"));
-const PRODUCT_TABLE = 'products';
-class Products extends sequelize_1.Model {
+const USER_TABLE = 'users';
+class Users extends sequelize_1.Model {
 }
-exports.Products = Products;
-Products.init({
+exports.Users = Users;
+Users.init({
     id: {
         type: sequelize_1.DataTypes.INTEGER,
         primaryKey: true,
@@ -21,20 +21,12 @@ Products.init({
         type: sequelize_1.DataTypes.STRING(50),
         allowNull: false,
     },
-    description: {
+    email: {
         type: sequelize_1.DataTypes.STRING(50),
         allowNull: false,
     },
-    price: {
-        type: sequelize_1.DataTypes.FLOAT,
-        allowNull: false,
-    },
-    stock: {
-        type: sequelize_1.DataTypes.INTEGER,
-        allowNull: false,
-    },
-    image: {
-        type: sequelize_1.DataTypes.STRING(50),
+    password: {
+        type: sequelize_1.DataTypes.STRING(150),
         allowNull: true,
     },
     status: {
@@ -44,7 +36,9 @@ Products.init({
     },
 }, {
     sequelize: connection_db_1.default,
-    tableName: PRODUCT_TABLE,
-    modelName: 'Products',
+    tableName: USER_TABLE,
+    modelName: 'Users',
     timestamps: true,
+    //createdAt: 'created_at',
+    //updatedAt: 'updated_at',
 });

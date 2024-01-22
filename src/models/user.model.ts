@@ -1,23 +1,23 @@
 import { Model, DataTypes } from 'sequelize';
 import connection from '../db/connection.db';
 
-export interface IProductAttributes {
+export interface IUserAttributes {
   id: number;
   name: string;
-  description: string;
-  price: number;
-  stock: number;
-  image: string;
+  email: string;
+  password: string;
   status: boolean;
-  created_at?: Date;
-  updated_at?: Date;
+  createdAt?: Date;
+  updatedAt?: Date;
+  //created_at?: Date;
+  //updated_at?: Date;
 }
 
-const PRODUCT_TABLE = 'products';
+const USER_TABLE = 'users';
 
-class Products extends Model<IProductAttributes> {}
+class Users extends Model<IUserAttributes> {}
 
-Products.init(
+Users.init(
   {
     id: {
       type: DataTypes.INTEGER,
@@ -29,35 +29,28 @@ Products.init(
       type: DataTypes.STRING(50),
       allowNull: false,
     },
-    description: {
+    email: {
       type: DataTypes.STRING(50),
       allowNull: false,
     },
-    price: {
-      type: DataTypes.FLOAT,
-      allowNull: false,
-    },
-    stock: {
-      type: DataTypes.INTEGER,
-      allowNull: false,
-    },
-    image: {
-      type: DataTypes.STRING(50),
-      allowNull: true,
+    password: {
+      type: DataTypes.STRING(150),
+      allowNull: true ,
     },
     status: {
       type: DataTypes.BOOLEAN,
       allowNull: false,
       defaultValue: true,
     },
-
   },
   {
     sequelize: connection,
-    tableName: PRODUCT_TABLE,
-    modelName: 'Products',
+    tableName: USER_TABLE,
+    modelName: 'Users',
     timestamps: true,
+    //createdAt: 'created_at',
+    //updatedAt: 'updated_at',
   },
 );
 
-export { Products };
+export { Users };

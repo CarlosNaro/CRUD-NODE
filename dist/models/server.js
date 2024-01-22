@@ -14,17 +14,26 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.Server = void 0;
 const express_1 = __importDefault(require("express"));
-const product_router_1 = __importDefault(require("../routes/product.router"));
-const user_router_1 = __importDefault(require("../routes/user.router"));
-const product_model_1 = require("./product.model");
+// import routerProduct from '../routes/product.router';
+// import routesUser from '../routes/user.router';
+const connection_db_1 = __importDefault(require("../db/connection.db"));
+const config_1 = __importDefault(require("../config"));
+const cors_1 = __importDefault(require("cors"));
+const routes_1 = __importDefault(require("../routes"));
 class Server {
     constructor() {
         this.app = (0, express_1.default)();
-        this.port = process.env.PORT || '3000';
+        this.port = config_1.default.port;
+        this.get();
         this.listen();
-        this.midelwares();
+        this.middlewares();
         this.Router();
         this.dbConnection();
+    }
+    get() {
+        this.app.get('/', (req, res) => {
+            res.send('API REST - Typescript - Sequelize - Postgres');
+        });
     }
     listen() {
         this.app.listen(this.port, () => {
@@ -32,18 +41,20 @@ class Server {
         });
     }
     Router() {
-        this.app.use('/api/products', product_router_1.default);
-        this.app.use('/api/users', user_router_1.default);
+        (0, routes_1.default)(this.app);
+        // this.app.use('/api/products', routerProduct);
+        // this.app.use('/api/users', routesUser);
     }
-    midelwares() {
+    middlewares() {
         this.app.use(express_1.default.json());
         // this.app.use(express.urlencoded({extended: false}));
+        this.app.use((0, cors_1.default)());
     }
     dbConnection() {
         return __awaiter(this, void 0, void 0, function* () {
             try {
-                yield product_model_1.Product.sync();
-                console.log('Database online');
+                console.log('Database online conectada ');
+                yield connection_db_1.default.sync();
             }
             catch (error) {
                 console.log(error);
