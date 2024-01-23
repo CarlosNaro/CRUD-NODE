@@ -8,4 +8,6 @@ const sequelize = new Sequelize(database, user, password, {
   dialect: 'postgres',
   //logging: false,
 });
+
+
 export default sequelize;
